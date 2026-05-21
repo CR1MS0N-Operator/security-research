@@ -4,58 +4,116 @@
 
 Published by [ForeverLX](https://github.com/ForeverLX) | Azrael Security™
 
-> This repository documents original security research, adversary emulation technique development, and infrastructure-focused vulnerability analysis produced by Azrael Security. Work is conducted on authorized, self-operated infrastructure. All findings are mapped to MITRE ATT&CK where applicable.
+> This repository documents original offensive security research, adversary emulation technique development, and infrastructure-focused vulnerability analysis produced by Azrael Security. Work is conducted exclusively on authorized, self-operated infrastructure. All findings are mapped to MITRE ATT&CK where applicable.
 
 ---
 
-## Research Areas
+## Research Methodology
+
+All research in this repository follows a systematic five-phase methodology designed to produce reproducible, defensible findings suitable for technical publication and operational adoption.
+
+**Phase 1: Baseline Establishment**
+Document the expected isolation behavior per component under test. For container boundaries, this means establishing what the runtime specification claims about namespace isolation, filesystem access, and process visibility. For kernel research, this means characterizing the intended behavior of syscall interfaces, capability boundaries, and privilege separation mechanisms. Baseline is derived from specification documentation, source code audit, and empirical measurement.
+
+**Phase 2: Boundary Identification**
+Identify the exact mechanism — syscall, kernel feature, configuration parameter, or runtime behavior — that enforces the control under examination. This phase answers the question: what is the specific enforcement point that prevents an operation from crossing the boundary? Traceability to source code or kernel interface is required.
+
+**Phase 3: Deviation Testing**
+Construct minimal reproduction cases that probe the boundary for unexpected behavior. Each test targets a single variable (namespace type, runtime flag, kernel version, hook configuration) while holding all others constant. Tests are designed to falsify the baseline assumption, not confirm it. A positive result (boundary violation) is required for publication; negative results are documented as scoped findings.
+
+**Phase 4: Impact Mapping**
+Connect each finding to a real operational context. For container boundary research, this means identifying the deployment patterns (agentic AI workloads, red team C2 infrastructure, multi-tenant GPU environments) where the finding represents a practical attack surface. Impact is assessed in terms of privilege escalation path, information disclosure scope, and exploitation prerequisites.
+
+**Phase 5: Documentation**
+Write up findings in a structured format suitable for a technical audience. Every documented finding includes: root cause analysis, reproduction steps, affected configurations, detection guidance, and MITRE ATT&CK mapping where applicable. Writeups are not CTF walkthroughs; they are analytical artifacts that explain why a vulnerability exists, not just how to trigger it.
+
+> This methodology is applied consistently across all research areas. Deviations are noted per finding.
+
+---
+
+## Active Research Areas
+
+| Area | Status | Last Activity | Priority |
+|---|---|---|---|
+| Container Boundary Research | **Active — flagship** | 2026-04-12 (Whitepaper 1 shipped) | Q2 sustaining |
+| Linux Kernel & Systems Research | **Active — early stage** | 2026-Q1 | Building toward |
+| Reverse Engineering | **Active — challenge series** | Ongoing | Q2 sustaining |
+| Active Directory Attack Paths | **Active — course-integrated** | Ongoing | Q2 sustaining |
+| Red Team Infrastructure Research | **Active** | Ongoing | Q2 sustaining |
+
+---
 
 ### 1. Container Boundary Research
-*Status: Active*
+**Status:** 🟢 Active — Flagship Q2 research track
+**Lead platform:** Cerberus (Podman rootless, Arch Linux)
+**Secondary platform:** Tairn (Docker, NixOS 24.11)
 
-Investigating Linux container isolation boundaries as they apply to real offensive infrastructure. Focus areas:
+Investigating Linux container isolation boundaries as they apply to real offensive infrastructure and, increasingly, to GPU-enabled multi-tenant AI workloads. Focus areas:
 
 - **Filesystem and mount abuse** — overlayfs behavior, bind mount escapes, volume permission misconfigurations in rootless Podman and Docker contexts
 - **Namespace privilege boundaries** — user namespace privilege mapping, PID/mount namespace isolation failures, capability leakage across namespace transitions
 - **Process visibility leaks** — `/proc` exposure from within containers, cross-container PID visibility under different namespace configurations
 - **Infrastructure applicability** — how these primitives map to real red team infrastructure (C2 isolation, agent staging environments, container-based implant delivery)
+- **CVE-2025-23266 & the NVIDIA hook execution surface** — environment inheritance from container images into host-privileged `createContainer` hooks via the OCI runtime; four-way comparison (rootless/rootful Podman × runc/crun) demonstrating runtime-specific reachability of the exploitation path
+- **GPU multi-tenant threat model** — compromised agentic workloads in GPU-enabled containers accessing NVIDIA's hook execution boundary; CDI spec generation, `LD_PRELOAD` injection into host hook processes, and the architectural gap between patch-level fixes and root-cause corrections in `libnvidia-container` / `nvidia-container-toolkit`
 
-Research platform: Cerberus (Podman rootless, Arch Linux) and Tairn (Docker, NixOS 24.11) — live infrastructure, not synthetic lab VMs.
+Research platforms: Cerberus (Podman rootless, Arch Linux) and Tairn (Docker, NixOS 24.11) — live infrastructure, not synthetic lab VMs.
+
+<!-- ![Container Boundary Lab Setup](assets/screenshots/lab-setup-container-boundaries.png) -->
+<!-- ![NVIDIA Hook Environment Inheritance — Figure 3](research/container-boundaries/assets/fig-03-ldpreload-hook-env.png) -->
+
+---
 
 ### 2. Linux Kernel & Systems Research
-*Status: Early stage — building toward*
+**Status:** 🟡 Active — early stage, building toward kernel exploitation primitives
+**Lead platform:** NightForge (Arch Linux, zen kernel)
 
 Low-level Linux systems research with a long-term focus on kernel exploitation primitives. Current entry point is container boundary analysis (userspace/kernel interface). Planned progression:
 
-- **Syscall boundary analysis** — userspace → kernel transitions, where validation occurs and where it doesn't
+- **Syscall boundary analysis** — userspace → kernel transitions, where validation occurs and where it does not
 - **Privilege escalation primitives** — capability abuse, namespace escape, SUID/SGID misuse
 - **Kernel exploitation foundations** — memory corruption in kernel context, ret2usr, kernel ROP (long-term track)
 - **CVE analysis** — dissecting published kernel CVEs to understand root cause and exploitation mechanics
 
 Research platform: NightForge (Arch Linux, zen kernel).
 
-### 3. Reverse Engineering
-*Status: Active — ongoing challenge series*
+<!-- ![Kernel Research Lab Environment](assets/screenshots/lab-setup-kernel.png) -->
 
-Documented RE methodology development through progressive challenge work, building toward application to real binaries and CVE analysis.
+---
+
+### 3. Reverse Engineering
+**Status:** 🟢 Active — ongoing challenge series
+**Methodology:** Progressive challenge work building toward application to real binaries and CVE analysis
+
+Documented RE methodology development through progressive challenge work:
 
 - **re-1** — ELF 32-bit, byte-wise comparison loop, static + GDB analysis
 - **re-2** — ELF 64-bit stripped, hex decoding pipeline, XOR-based custom comparison logic
 - *Ongoing: additional StackSmash RE challenges as completed*
 
+Each challenge is documented with full methodology, tool invocation output, and analytical reasoning — not just the solution.
+
+---
+
 ### 4. Active Directory Attack Paths
-*Status: Ongoing (course-integrated)*
+**Status:** 🟢 Active — course-integrated (CRTA / CRT-ID)
+**Lab platform:** Tairn (NixOS 24.11, Mythic C2, Windows AD lab)
 
 Technique documentation from CRTA and CRT-ID coursework (CyberWarfare Labs), integrated with hands-on lab work on Tairn. Every technique documented with:
+
 - Mechanical explanation of what is actually happening at the protocol/system level
 - MITRE ATT&CK mapping
-- Detection considerations
-- Tool invocation and output
+- Detection considerations (audit policy, event log sources, sigma rule coverage)
+- Tool invocation and annotated output
+
+---
 
 ### 5. Red Team Infrastructure Research
-*Status: Ongoing*
+**Status:** 🟢 Active
+**Platform:** Veil infrastructure (multi-node WireGuard mesh)
 
 Operational security and architecture research applied to the Veil infrastructure project:
+
 - WireGuard mesh architecture for multi-node C2 environments
 - Mythic C2 deployment hardening (network isolation, firewall posture)
 - Declarative NixOS for reproducible attack nodes
@@ -63,13 +121,68 @@ Operational security and architecture research applied to the Veil infrastructur
 
 ---
 
+## Publications
+
+### Whitepaper 1: Below the Abstraction
+**Title:** *Below the Abstraction: Hook Isolation Failures in the NVIDIA Container Toolkit*
+**Status:** ✅ Published — 2026-04-12
+**Location:** [`research/container-boundaries/`](research/container-boundaries/README.md)
+**CVE Chain:** CVE-2024-0132 → CVE-2025-23359 → CVE-2025-23266
+
+**Abstract:**
+This paper examines a chain of three CVEs in the NVIDIA container stack under rootless Podman with runc as the OCI runtime. The vulnerability chain spans two repositories and two hook types, but shares a common structural failure: the boundary between container-controlled input and host-level hook execution is enforced inconsistently across the toolkit architecture. The practical threat model is a compromised agentic workload running in a GPU-enabled rootless container, a deployment pattern that has become common with the rise of local AI infrastructure.
+
+**Key findings:**
+1. Structural boundary failure across the toolkit architecture — no CVE corrected the root cause
+2. `execseal` asymmetry — `update-ldcache` hook sealed, `enable-cuda-compat` hook (the CVE-2025-23266 vector) not sealed
+3. Runtime-specific reachability — the exploitation path is reachable under crun but not under runc on rootless Podman; the patch closes it uniformly under both runtimes
+
+**Prior publication context:** Based on original CVE research by Wiz Research; this paper extends the investigation to rootless Podman with a four-way runtime comparison not previously documented.
+
+### Whitepaper 2
+**Status:** 🔵 Planned — deferred to Q3 2026
+**Scope:** TBD — second whitepaper in the container boundary research track
+
+---
+
+## Lab Environment
+
+Research is conducted on live infrastructure — not ephemeral lab VMs. Three primary systems support the research program:
+
+### Cerberus — Container & GPU Security Research
+- **OS:** Arch Linux (rolling)
+- **Container runtime:** Podman (rootless), runc 1.4.2 (primary OCI), crun (secondary test target)
+- **GPU:** NVIDIA GeForce GTX 1650
+- **Driver:** 595.58.03
+- **NVIDIA toolkit:** Multiple versions (v1.17.7 vulnerable, v1.19.0 patched) built from source at tagged releases
+- **Role:** Primary container boundary research platform; NVIDIA CVE analysis; GPU multi-tenant threat model testing
+- **Architecture:** Edge node in Veil WireGuard mesh
+
+### Tairn — Active Directory & Adversary Emulation
+- **OS:** NixOS 24.11
+- **Container runtime:** Docker (vulnerability testing, agent staging)
+- **C2 framework:** Mythic
+- **AD lab:** Windows Domain Controller + member hosts (AD attack path validation)
+- **Role:** AD technique validation (Kerberoasting, DCSync, Golden Ticket); agent testing and C2 deployment hardening
+- **Architecture:** Managed node in Veil WireGuard mesh
+
+### NightForge — Operator Workstation
+- **OS:** Arch Linux (zen kernel)
+- **Role:** Operator workstation, kernel research, reverse engineering, binary analysis
+- **Tooling:** GDB, Ghidra, ltrace/strace, objdump, custom analysis scripts
+- **Documented at:** [nightforge](https://github.com/ForeverLX/nightforge)
+
+<!-- ![Research Lab Network Diagram](assets/screenshots/lab-network-topology.png) -->
+
+---
+
 ## Active Research — Container Boundary Analysis
 
-*This section will be populated as the research progresses. Structure is established in advance to hold the work.*
+*Flagship Q2 research track. Structure is established to hold ongoing work.*
 
 ```
 research/container-boundaries/
-├── README.md               # Research overview and methodology
+├── README.md               # Research overview, whitepaper, and methodology
 ├── 01-environment-setup/   # Lab setup, tooling, baseline measurements
 ├── 02-filesystem-mounts/   # Findings: overlayfs, bind mounts, volume abuse
 ├── 03-namespace-analysis/  # Findings: user/pid/mount namespace boundaries
@@ -78,20 +191,11 @@ research/container-boundaries/
 └── report/                 # Final research artifact (MITRE-mapped)
 ```
 
-**Research methodology:**
-1. Establish baseline: document expected isolation behavior per container runtime
-2. Identify boundary: find the exact syscall, kernel feature, or configuration that enforces the control
-3. Test deviation: construct minimal reproduction case that demonstrates the boundary condition
-4. Map impact: connect finding to a real offensive or defensive use case
-5. Document: write-up suitable for technical audience (not a CTF walkthrough)
-
 ---
 
 ## Technique Library
 
 Documented techniques from lab work and course progression. Each entry includes mechanical explanation, reproduction steps, and ATT&CK mapping.
-
-*Actively populating as course work progresses on Tairn.*
 
 | Technique | ATT&CK ID | Platform | Status |
 |---|---|---|---|
@@ -105,6 +209,55 @@ Documented techniques from lab work and course progression. Each entry includes 
 | *Container escape via mount* | *TBD* | Linux | In progress |
 | *Namespace boundary abuse* | *TBD* | Linux | In progress |
 | *Kernel privilege escalation primitives* | *TBD* | Linux | Planned |
+| *CDI hook environment inheritance* | *TBD* | Linux | Whitepaper 1 |
+
+---
+
+## Reproducibility
+
+All findings in this repository are accompanied by reproduction conditions sufficient for independent verification. The following principles govern reproducibility:
+
+**Environment specification:** Each finding documents the operating system version, kernel version, runtime version (Podman/Docker/runc/crun), and toolkit version used during testing. Version pinning enables exact reproduction.
+
+**Test isolation:** Tests are designed to minimize dependencies on specific host configurations. Where host-specific values (UID mappings, filesystem paths) affect the result, they are documented explicitly. Tests target the container runtime's behavior, not the host's incidental state.
+
+**Infrastructure access:** The research lab is documented above in the Lab Environment section. Researchers with equivalent hardware and software configurations should be able to reproduce the core findings. Where specialized GPU hardware is required (NVIDIA CVE research), this is noted as a constraint.
+
+**Negative results documented:** Findings include both positive and negative results. The rootless Podman + runc configuration does not expose the CVE-2025-23266 exploitation path; this negative result is documented with the same environmental specificity as the positive result under crun. This prevents wasted reproduction effort on configurations where the finding does not apply.
+
+**Patch verification:** Where findings involve vendor patches, reproduction steps include verification of both the pre-patch and post-patch state. CDI spec inspection commands, version checks, and configuration file diffs are provided.
+
+---
+
+## Future Research Directions — Q3 2026 Priorities
+
+The following research directions are planned for Q3 2026:
+
+### Whitepaper 2 — Container Boundary Deep Dive
+- Second publication in the container boundary research track
+- Scope TBD; building on findings from Q2 container boundary analysis
+- Likely focus: filesystem and mount boundary abuse in rootless contexts
+
+### Extended OCI Runtime Comparison
+- Expand the four-way runtime comparison (rootless/rootful × runc/crun) to include:
+  - youki (Rust-based OCI runtime)
+  - Kata Containers (VM-based isolation)
+  - gVisor (userspace kernel)
+- Characterize hook environment inheritance behavior across a broader runtime landscape
+
+### Kernel Exploitation Foundations
+- Begin structured CVE analysis track: dissect published kernel CVEs with full root cause analysis
+- Target: CVEs with available PoC code and patch diffs
+- Deliverable: RCA writeups indexed in `research/kernel/`
+
+### GPU Multi-Tenant Isolation
+- Beyond the NVIDIA hook surface: investigate GPU memory isolation between containers sharing a physical GPU
+- MIG (Multi-Instance GPU) partition analysis
+- CUDA context isolation boundaries
+
+### RE Challenge Progression
+- Continue StackSmash RE challenge series
+- Begin transitioning to analysis of real stripped binaries (C2 implants, packer/shellcode analysis)
 
 ---
 
@@ -114,7 +267,7 @@ Documented techniques from lab work and course progression. Each entry includes 
 security-research/
 ├── README.md
 ├── research/
-│   ├── container-boundaries/   # Active flagship research
+│   ├── container-boundaries/   # Active flagship research + Whitepaper 1
 │   ├── kernel/                 # Linux kernel & systems research
 │   ├── active-directory/       # AD technique documentation
 │   └── infrastructure/         # Red team infra research notes
@@ -127,7 +280,11 @@ security-research/
 │       └── kernel/             # Kernel exploitation technique notes
 ├── labs/
 │   └── tairn/                  # Lab work documented from Tairn
+├── writeups/
+│   ├── reverse-engineering/
+│   └── README.md
 └── assets/
+    ├── screenshots/            # Environment and lab screenshots
     └── certificates/           # Certifications (AD-RTS, CAPT, COSJ)
 ```
 
@@ -157,7 +314,7 @@ Research is conducted on the [Veil](https://github.com/ForeverLX/veil) infrastru
 
 ## Disclaimer
 
-All research is conducted on self-operated infrastructure for authorized security research purposes. Findings and techniques are documented for educational and professional development purposes only.
+All research is conducted on self-operated infrastructure for authorized security research purposes. Findings and techniques are documented for educational and professional development purposes only. No production infrastructure is tested. No unauthorized target scanning is performed. All PoCs include detection guidance where applicable. Kernel exploits require full root cause analysis, not just functional exploitation.
 
 ---
 
