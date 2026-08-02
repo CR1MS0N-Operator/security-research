@@ -8,6 +8,20 @@ Published by [ForeverLX](https://github.com/ForeverLX) | Azrael Security™
 
 ---
 
+## Documentation
+
+| Document | Purpose |
+|---|---|
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Research structure, writeup format, content categories |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to add research; review process |
+| [SECURITY.md](SECURITY.md) | Engagement boundary, redaction policy, what never goes public |
+| [CHANGELOG.md](CHANGELOG.md) | Release history from git |
+| [AGENTS.md](AGENTS.md) | Commands and conventions for AI agents |
+| [docs/CONTENT-INVENTORY.md](docs/CONTENT-INVENTORY.md) | Full inventory: writeups, CVEs, techniques, diagrams, code samples |
+| [docs/MIGRATION.md](docs/MIGRATION.md) | azraelsec.dev migration status |
+
+---
+
 ## Research Methodology
 
 All research in this repository follows a systematic five-phase methodology designed to produce reproducible, defensible findings suitable for technical publication and operational adoption.
@@ -178,17 +192,18 @@ Research is conducted on live infrastructure — not ephemeral lab VMs. Three pr
 
 ## Active Research — Container Boundary Analysis
 
-*Flagship Q2 research track. Structure is established to hold ongoing work.*
+*Flagship Q2 research track. Actual content: whitepaper + figures. Structure below is the planned layout for ongoing work, not yet populated.*
 
 ```
 research/container-boundaries/
-├── README.md               # Research overview, whitepaper, and methodology
-├── 01-environment-setup/   # Lab setup, tooling, baseline measurements
-├── 02-filesystem-mounts/   # Findings: overlayfs, bind mounts, volume abuse
-├── 03-namespace-analysis/  # Findings: user/pid/mount namespace boundaries
-├── 04-proc-visibility/     # Findings: /proc exposure and PID leaks
-├── 05-infrastructure-impact/ # How findings map to offensive infra use cases
-└── report/                 # Final research artifact (MITRE-mapped)
+├── README.md               # Whitepaper 1 (published 2026-04-12) + methodology
+├── assets/                 # Figures fig-01 … fig-06
+├── 01-environment-setup/   # Planned: lab setup, tooling, baseline measurements
+├── 02-filesystem-mounts/   # Planned: overlayfs, bind mounts, volume abuse
+├── 03-namespace-analysis/  # Planned: user/pid/mount namespace boundaries
+├── 04-proc-visibility/     # Planned: /proc exposure and PID leaks
+├── 05-infrastructure-impact/ # Planned: findings mapped to offensive infra use cases
+└── report/                 # Planned: final research artifact (MITRE-mapped)
 ```
 
 ---
@@ -199,17 +214,17 @@ Documented techniques from lab work and course progression. Each entry includes 
 
 | Technique | ATT&CK ID | Platform | Status |
 |---|---|---|---|
-| Kerberoasting | T1558.003 | Windows AD | Documented |
-| AS-REP Roasting | T1558.004 | Windows AD | Documented |
-| DCSync | T1003.006 | Windows AD | Documented |
-| Golden Ticket | T1558.001 | Windows AD | Documented |
-| Domain Account Enumeration | T1087.002 | Windows AD | Documented |
 | RE: ELF 32-bit byte-wise validation | — | Linux | Complete — `techniques/linux/re/re-1` |
 | RE: ELF 64-bit stripped, XOR comparison | — | Linux | Complete — `techniques/linux/re/re-2` |
+| CDI hook environment inheritance (CVE-2025-23266) | — | Linux | Published — Whitepaper 1, `research/container-boundaries/` |
+| Kerberoasting | T1558.003 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
+| AS-REP Roasting | T1558.004 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
+| DCSync | T1003.006 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
+| Golden Ticket | T1558.001 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
+| Domain Account Enumeration | T1087.002 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
 | *Container escape via mount* | *TBD* | Linux | In progress |
 | *Namespace boundary abuse* | *TBD* | Linux | In progress |
 | *Kernel privilege escalation primitives* | *TBD* | Linux | Planned |
-| *CDI hook environment inheritance* | *TBD* | Linux | Whitepaper 1 |
 
 ---
 
@@ -266,26 +281,32 @@ The following research directions are planned for Q3 2026:
 ```
 security-research/
 ├── README.md
+├── ARCHITECTURE.md             # Research structure, writeup format, content categories
+├── CONTRIBUTING.md             # How to add research; review process
+├── SECURITY.md                 # Engagement boundary, redaction policy
+├── CHANGELOG.md                # Release history from git
+├── AGENTS.md                   # AI agent commands and conventions
+├── docs/
+│   ├── CONTENT-INVENTORY.md    # Full content inventory
+│   └── MIGRATION.md            # azraelsec.dev migration status
 ├── research/
-│   ├── container-boundaries/   # Active flagship research + Whitepaper 1
-│   ├── kernel/                 # Linux kernel & systems research
-│   ├── active-directory/       # AD technique documentation
-│   └── infrastructure/         # Red team infra research notes
+│   └── container-boundaries/   # Active flagship research + Whitepaper 1
+│       └── assets/             # Figures fig-01 … fig-06
 ├── techniques/
-│   ├── ad/                     # Per-technique writeups (AD)
 │   └── linux/
-│       ├── re/                 # Reverse engineering writeups
-│       │   ├── re-1/
-│       │   └── re-2/
-│       └── kernel/             # Kernel exploitation technique notes
-├── labs/
-│   └── tairn/                  # Lab work documented from Tairn
+│       └── re/                 # Reverse engineering writeups
+│           ├── re-1/
+│           └── re-2/
 ├── writeups/
-│   ├── reverse-engineering/
-│   └── README.md
+│   └── README.md               # Writeup index (category scaffolds)
+├── labs/
+│   └── tairn/                  # Empty scaffold
 └── assets/
-    ├── screenshots/            # Environment and lab screenshots
+    ├── screenshots/            # Environment and site screenshots
     └── certificates/           # Certifications (AD-RTS, CAPT, COSJ)
+
+Planned locations, not yet populated: `research/kernel/`, `research/active-directory/`,
+`research/infrastructure/`, `techniques/ad/`, `techniques/linux/kernel/`.
 ```
 
 ---
