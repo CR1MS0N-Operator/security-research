@@ -4,7 +4,13 @@
 
 Published by [ForeverLX](https://github.com/ForeverLX) | Azrael Security™
 
+[![GitHub repo size](https://img.shields.io/github/repo-size/CR1MS0N-Operator/security-research)](https://github.com/CR1MS0N-Operator/security-research)
+[![CVE-2025-23266 — NVIDIA Container Toolkit](https://img.shields.io/badge/CVE--2025--23266-NVIDIA%20Container%20Toolkit-critical)](https://nvd.nist.gov/vuln/detail/CVE-2025-23266)
+[![Container boundary research — Whitepaper 1](https://img.shields.io/badge/container%20boundary%20research-Whitepaper%201-blue)](research/container-boundaries/README.md)
+
 > This repository documents original offensive security research, adversary emulation technique development, and infrastructure-focused vulnerability analysis produced by Azrael Security. Work is conducted exclusively on authorized, self-operated infrastructure. All findings are mapped to MITRE ATT&CK where applicable.
+
+**Flagship publication:** [_Below the Abstraction: Hook Isolation Failures in the NVIDIA Container Toolkit_](research/container-boundaries/README.md) — the CVE-2024-0132 → CVE-2025-23359 → CVE-2025-23266 chain analyzed under rootless/rootful Podman across the runc and crun OCI runtimes. Repository contents: one research whitepaper, two reverse-engineering technique writeups (`re-1`, `re-2`), and supporting documentation.
 
 ---
 
@@ -71,7 +77,7 @@ Investigating Linux container isolation boundaries as they apply to real offensi
 - **CVE-2025-23266 & the NVIDIA hook execution surface** — environment inheritance from container images into host-privileged `createContainer` hooks via the OCI runtime; four-way comparison (rootless/rootful Podman × runc/crun) demonstrating runtime-specific reachability of the exploitation path
 - **GPU multi-tenant threat model** — compromised agentic workloads in GPU-enabled containers accessing NVIDIA's hook execution boundary; CDI spec generation, `LD_PRELOAD` injection into host hook processes, and the architectural gap between patch-level fixes and root-cause corrections in `libnvidia-container` / `nvidia-container-toolkit`
 
-Research platforms: Cerberus (Podman rootless, Arch Linux) and Tairn (Docker, NixOS 24.11) — live infrastructure, not synthetic lab VMs.
+Research platforms: Cerberus (rootless Podman, Arch Linux), Tairn (Docker, NixOS 24.11), and NightForge (Arch Linux — host of the Whitepaper 1 lab environment, [§5](research/container-boundaries/README.md#section-5-open-research--rootless-podman--runc)) — live infrastructure, not synthetic lab VMs.
 
 <!-- ![Container Boundary Lab Setup](assets/screenshots/lab-setup-container-boundaries.png) -->
 <!-- ![NVIDIA Hook Environment Inheritance — Figure 3](research/container-boundaries/assets/fig-03-ldpreload-hook-env.png) -->
@@ -153,9 +159,25 @@ This paper examines a chain of three CVEs in the NVIDIA container stack under ro
 
 **Prior publication context:** Based on original CVE research by Wiz Research; this paper extends the investigation to rootless Podman with a four-way runtime comparison not previously documented.
 
+**Advisories & references:**
+- NVIDIA bulletins: [CVE-2024-0132 (a_id/5582)](https://nvidia.custhelp.com/app/answers/detail/a_id/5582) · [CVE-2025-23359 (a_id/5616)](https://nvidia.custhelp.com/app/answers/detail/a_id/5616) · [CVE-2025-23266 (a_id/5659)](https://nvidia.custhelp.com/app/answers/detail/a_id/5659)
+- NVD entries: [CVE-2024-0132](https://nvd.nist.gov/vuln/detail/CVE-2024-0132) · [CVE-2025-23359](https://nvd.nist.gov/vuln/detail/CVE-2025-23359) · [CVE-2025-23266](https://nvd.nist.gov/vuln/detail/CVE-2025-23266)
+- Wiz Research disclosure: [NVIDIAScape — CVE-2025-23266](https://www.wiz.io/blog/nvidia-ai-vulnerability-cve-2025-23266-nvidiascape)
+
 ### Whitepaper 2
 **Status:** 🔵 Planned — deferred to Q3 2026
 **Scope:** TBD — second whitepaper in the container boundary research track
+
+## Disclosure Timeline
+
+Public disclosure history for the CVE chain investigated in Whitepaper 1, alongside this repository's publication milestones.
+
+| Date | Event |
+|---|---|
+| 2024-09-26 | **CVE-2024-0132 disclosed** — path traversal / escape in `libnvidia-container` (NVIDIA bulletin [a_id/5582](https://nvidia.custhelp.com/app/answers/detail/a_id/5582)) |
+| 2025-02-12 | **CVE-2025-23359 disclosed** — incomplete-patch bypass of CVE-2024-0132 in `libnvidia-container` (NVIDIA bulletin [a_id/5616](https://nvidia.custhelp.com/app/answers/detail/a_id/5616)) |
+| 2025-07-17 | **CVE-2025-23266 disclosed** by Wiz Research ([NVIDIAScape](https://www.wiz.io/blog/nvidia-ai-vulnerability-cve-2025-23266-nvidiascape)) — `createContainer` hook environment inheritance in `nvidia-container-toolkit` (NVIDIA bulletin [a_id/5659](https://nvidia.custhelp.com/app/answers/detail/a_id/5659)) |
+| 2026-04-12 | **Whitepaper 1 published** in this repository — the CVE chain under rootless Podman, four-way runtime comparison (runc/crun × rootless/rootful) |
 
 ---
 
@@ -182,7 +204,7 @@ Research is conducted on live infrastructure — not ephemeral lab VMs. Three pr
 
 ### NightForge — Operator Workstation
 - **OS:** Arch Linux (zen kernel)
-- **Role:** Operator workstation, kernel research, reverse engineering, binary analysis
+- **Role:** Operator workstation, kernel research, reverse engineering, binary analysis; host of the Whitepaper 1 lab environment (rootless Podman, runc 1.4.2, NVIDIA GTX 1650 — full version pins in whitepaper §5)
 - **Tooling:** GDB, Ghidra, ltrace/strace, objdump, custom analysis scripts
 - **Documented at:** [nightforge](https://github.com/ForeverLX/nightforge)
 
