@@ -12,6 +12,12 @@ Published by [ForeverLX](https://github.com/ForeverLX) | Azrael Security™
 
 **Flagship publication:** [_Below the Abstraction: Hook Isolation Failures in the NVIDIA Container Toolkit_](research/container-boundaries/README.md) — the CVE-2024-0132 → CVE-2025-23359 → CVE-2025-23266 chain analyzed under rootless/rootful Podman across the runc and crun OCI runtimes. Repository contents: one research whitepaper, two reverse-engineering technique writeups (`re-1`, `re-2`), and supporting documentation.
 
+## Role in the CR1MS0N Platform
+
+security-research is the **original-research corpus** of the [CR1MS0N continuous adversarial validation platform](https://github.com/CR1MS0N-Operator/veil). It publishes the vulnerability and technique findings that the platform's validation substrate and measurement layer operationalize: [NightForge](https://github.com/CR1MS0N-Operator/nightforge) — CR1MS0N's measurement + mobilization layer — hosts the Whitepaper 1 lab environment ([§5](research/container-boundaries/README.md#section-5-open-research--rootless-podman--runc)) and turns research like this into validation proposals and gates.
+
+**Sibling projects:** [NightForge](https://github.com/CR1MS0N-Operator/nightforge) (measurement + mobilization) · [Veil](https://github.com/CR1MS0N-Operator/veil) (validation substrate) · [C4](https://github.com/CR1MS0N-Operator/c4) (validation engine) · [Lantern](https://github.com/CR1MS0N-Operator/ACLGuard-Active-Directory-Permission-Auditor) (identity exposure validation).
+
 ---
 
 ## Documentation
@@ -206,7 +212,7 @@ Research is conducted on live infrastructure — not ephemeral lab VMs. Three pr
 - **OS:** Arch Linux (zen kernel)
 - **Role:** Operator workstation, kernel research, reverse engineering, binary analysis; host of the Whitepaper 1 lab environment (rootless Podman, runc 1.4.2, NVIDIA GTX 1650 — full version pins in whitepaper §5)
 - **Tooling:** GDB, Ghidra, ltrace/strace, objdump, custom analysis scripts
-- **Documented at:** [nightforge](https://github.com/ForeverLX/nightforge)
+- **Documented at:** [nightforge](https://github.com/CR1MS0N-Operator/nightforge)
 
 <!-- ![Research Lab Network Diagram](assets/screenshots/lab-network-topology.png) -->
 
@@ -335,11 +341,11 @@ Planned locations, not yet populated: `research/kernel/`, `research/active-direc
 
 ## Infrastructure
 
-Research is conducted on the [Veil](https://github.com/ForeverLX/veil) infrastructure:
+Research is conducted on the [Veil](https://github.com/CR1MS0N-Operator/veil) infrastructure:
 
 - **Cerberus** — Arch Linux edge node, rootless Podman (primary container research platform)
 - **Tairn** — NixOS 24.11, Mythic C2 + Docker (AD lab work, agent testing)
-- **NightForge** — Arch Linux operator workstation ([nightforge](https://github.com/ForeverLX/nightforge))
+- **NightForge** — Arch Linux operator workstation ([nightforge](https://github.com/CR1MS0N-Operator/nightforge))
 
 ---
 
