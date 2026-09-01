@@ -1,20 +1,20 @@
 # security-research
 
-**Offensive Security Research — Below The Abstraction**
+**Azrael Security — Offensive Security Research**
 
-Published by [CR1MS0N](https://github.com/CR1MS0N-Operator) 
+Published by [CR1MS0N-Operator](https://github.com/CR1MS0N-Operator) | Azrael Security™
 
 [![GitHub repo size](https://img.shields.io/github/repo-size/CR1MS0N-Operator/security-research)](https://github.com/CR1MS0N-Operator/security-research)
 [![CVE-2025-23266 — NVIDIA Container Toolkit](https://img.shields.io/badge/CVE--2025--23266-NVIDIA%20Container%20Toolkit-critical)](https://nvd.nist.gov/vuln/detail/CVE-2025-23266)
 [![Container boundary research — Whitepaper 1](https://img.shields.io/badge/container%20boundary%20research-Whitepaper%201-blue)](research/container-boundaries/README.md)
 
-> This repository documents original offensive security research, adversary emulation technique development, and infrastructure-focused vulnerability analysis produced by CR1MS0N Operator. Work is conducted exclusively on authorized, self-operated infrastructure. All findings are mapped to MITRE ATT&CK where applicable.
+> This repository documents original offensive security research, adversary emulation technique development, and infrastructure-focused vulnerability analysis produced by Azrael Security. Work is conducted exclusively on authorized, self-operated infrastructure. All findings are mapped to MITRE ATT&CK where applicable.
 
 **Flagship publication:** [_Below the Abstraction: Hook Isolation Failures in the NVIDIA Container Toolkit_](research/container-boundaries/README.md) — the CVE-2024-0132 → CVE-2025-23359 → CVE-2025-23266 chain analyzed under rootless/rootful Podman across the runc and crun OCI runtimes. Repository contents: one research whitepaper, two reverse-engineering technique writeups (`re-1`, `re-2`), and supporting documentation.
 
 ## Role in the CR1MS0N Platform
 
-Security-research is the **original-research corpus** of the [CR1MS0N continuous adversarial validation platform](https://github.com/CR1MS0N-Operator/veil). It publishes the vulnerability and technique findings that the platform's validation substrate and measurement layer operationalize: [NightForge](https://github.com/CR1MS0N-Operator/nightforge) — CR1MS0N's measurement + mobilization layer — hosts the Whitepaper 1 lab environment ([§5](research/container-boundaries/README.md#section-5-open-research--rootless-podman--runc)) and turns research like this into validation proposals and gates.
+security-research is the **original-research corpus** of the [CR1MS0N continuous adversarial validation platform](https://github.com/CR1MS0N-Operator/veil). It publishes the vulnerability and technique findings that the platform's validation substrate and measurement layer operationalize: [NightForge](https://github.com/CR1MS0N-Operator/nightforge) — CR1MS0N's measurement + mobilization layer — hosts the Whitepaper 1 lab environment ([§5](research/container-boundaries/README.md#section-5-open-research--rootless-podman--runc)) and turns research like this into validation proposals and gates.
 
 **Sibling projects:** [NightForge](https://github.com/CR1MS0N-Operator/nightforge) (measurement + mobilization) · [Veil](https://github.com/CR1MS0N-Operator/veil) (validation substrate) · [C4](https://github.com/CR1MS0N-Operator/c4) (validation engine) · [Lantern](https://github.com/CR1MS0N-Operator/ACLGuard-Active-Directory-Permission-Auditor) (identity exposure validation).
 
@@ -85,8 +85,6 @@ Investigating Linux container isolation boundaries as they apply to real offensi
 
 Research platforms: Cerberus (rootless Podman, Arch Linux), Tairn (Docker, NixOS 24.11), and NightForge (Arch Linux — host of the Whitepaper 1 lab environment, [§5](research/container-boundaries/README.md#section-5-open-research--rootless-podman--runc)) — live infrastructure, not synthetic lab VMs.
 
-<!-- ![Container Boundary Lab Setup](assets/screenshots/lab-setup-container-boundaries.png) -->
-<!-- ![NVIDIA Hook Environment Inheritance — Figure 3](research/container-boundaries/assets/fig-03-ldpreload-hook-env.png) -->
 
 ---
 
@@ -103,7 +101,6 @@ Low-level Linux systems research with a long-term focus on kernel exploitation p
 
 Research platform: NightForge (Arch Linux, zen kernel).
 
-<!-- ![Kernel Research Lab Environment](assets/screenshots/lab-setup-kernel.png) -->
 
 ---
 
@@ -214,7 +211,6 @@ Research is conducted on live infrastructure — not ephemeral lab VMs. Three pr
 - **Tooling:** GDB, Ghidra, ltrace/strace, objdump, custom analysis scripts
 - **Documented at:** [nightforge](https://github.com/CR1MS0N-Operator/nightforge)
 
-<!-- ![Research Lab Network Diagram](assets/screenshots/lab-network-topology.png) -->
 
 ---
 
@@ -245,11 +241,6 @@ Documented techniques from lab work and course progression. Each entry includes 
 | RE: ELF 32-bit byte-wise validation | — | Linux | Complete — `techniques/linux/re/re-1` |
 | RE: ELF 64-bit stripped, XOR comparison | — | Linux | Complete — `techniques/linux/re/re-2` |
 | CDI hook environment inheritance (CVE-2025-23266) | — | Linux | Published — Whitepaper 1, `research/container-boundaries/` |
-| Kerberoasting | T1558.003 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
-| AS-REP Roasting | T1558.004 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
-| DCSync | T1003.006 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
-| Golden Ticket | T1558.001 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
-| Domain Account Enumeration | T1087.002 | Windows AD | Documented in azrael-vault (removed from repo in 2026-03 restructure) |
 | *Container escape via mount* | *TBD* | Linux | In progress |
 | *Namespace boundary abuse* | *TBD* | Linux | In progress |
 | *Kernel privilege escalation primitives* | *TBD* | Linux | Planned |
@@ -367,4 +358,4 @@ All research is conducted on self-operated infrastructure for authorized securit
 
 ---
 
-**Author:** Darrius Grate (ForeverLX) | Azrael Security™
+**Author:** CR1MS0N-Operator | Azrael Security™
