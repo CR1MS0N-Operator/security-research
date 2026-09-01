@@ -1,20 +1,20 @@
 # security-research
 
-**Azrael Security — Offensive Security Research**
+**Offensive Security Research — Below The Abstraction**
 
-Published by [ForeverLX](https://github.com/ForeverLX) | Azrael Security™
+Published by [CR1MS0N](https://github.com/CR1MS0N-Operator) 
 
 [![GitHub repo size](https://img.shields.io/github/repo-size/CR1MS0N-Operator/security-research)](https://github.com/CR1MS0N-Operator/security-research)
 [![CVE-2025-23266 — NVIDIA Container Toolkit](https://img.shields.io/badge/CVE--2025--23266-NVIDIA%20Container%20Toolkit-critical)](https://nvd.nist.gov/vuln/detail/CVE-2025-23266)
 [![Container boundary research — Whitepaper 1](https://img.shields.io/badge/container%20boundary%20research-Whitepaper%201-blue)](research/container-boundaries/README.md)
 
-> This repository documents original offensive security research, adversary emulation technique development, and infrastructure-focused vulnerability analysis produced by Azrael Security. Work is conducted exclusively on authorized, self-operated infrastructure. All findings are mapped to MITRE ATT&CK where applicable.
+> This repository documents original offensive security research, adversary emulation technique development, and infrastructure-focused vulnerability analysis produced by CR1MS0N Operator. Work is conducted exclusively on authorized, self-operated infrastructure. All findings are mapped to MITRE ATT&CK where applicable.
 
 **Flagship publication:** [_Below the Abstraction: Hook Isolation Failures in the NVIDIA Container Toolkit_](research/container-boundaries/README.md) — the CVE-2024-0132 → CVE-2025-23359 → CVE-2025-23266 chain analyzed under rootless/rootful Podman across the runc and crun OCI runtimes. Repository contents: one research whitepaper, two reverse-engineering technique writeups (`re-1`, `re-2`), and supporting documentation.
 
 ## Role in the CR1MS0N Platform
 
-security-research is the **original-research corpus** of the [CR1MS0N continuous adversarial validation platform](https://github.com/CR1MS0N-Operator/veil). It publishes the vulnerability and technique findings that the platform's validation substrate and measurement layer operationalize: [NightForge](https://github.com/CR1MS0N-Operator/nightforge) — CR1MS0N's measurement + mobilization layer — hosts the Whitepaper 1 lab environment ([§5](research/container-boundaries/README.md#section-5-open-research--rootless-podman--runc)) and turns research like this into validation proposals and gates.
+Security-research is the **original-research corpus** of the [CR1MS0N continuous adversarial validation platform](https://github.com/CR1MS0N-Operator/veil). It publishes the vulnerability and technique findings that the platform's validation substrate and measurement layer operationalize: [NightForge](https://github.com/CR1MS0N-Operator/nightforge) — CR1MS0N's measurement + mobilization layer — hosts the Whitepaper 1 lab environment ([§5](research/container-boundaries/README.md#section-5-open-research--rootless-podman--runc)) and turns research like this into validation proposals and gates.
 
 **Sibling projects:** [NightForge](https://github.com/CR1MS0N-Operator/nightforge) (measurement + mobilization) · [Veil](https://github.com/CR1MS0N-Operator/veil) (validation substrate) · [C4](https://github.com/CR1MS0N-Operator/c4) (validation engine) · [Lantern](https://github.com/CR1MS0N-Operator/ACLGuard-Active-Directory-Permission-Auditor) (identity exposure validation).
 
