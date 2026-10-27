@@ -65,3 +65,10 @@ hunk session review --repo . --json   # programmatic review snapshot
 - Target: azraelsec.dev (see `docs/MIGRATION.md`).
 - Archive-prep sessions are documentation-only: no content moves, no deletions.
 - Guardrails from `SECURITY.md` apply to migrated content as well.
+
+## Live state outranks the record (fleet rule, 2026-10-26)
+
+A measurement taken now outranks any document, skill or config that contradicts it — including this
+file. Never pin live facts (model ids, prices, ports, paths, versions) in docs or skills: name the role
+and resolve it live. Before a dispatch, run `cr1ms0n-fleet-check` (it fails loudly on a dead pin).
+Canonical rule and its origin: `~/Documents/ai-lab-vault/AGENTS.md` § "Live state outranks the record".
