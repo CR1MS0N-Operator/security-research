@@ -3,6 +3,18 @@
 ## Purpose
 Container boundary vulnerability research and root cause analysis (RCA). Q2 sustaining track: weekly container research, three staged RCAs (CVE-2024-0132, CVE-2025-23359, CVE-2025-23266). Repository is the public research hub; archive prep after migration to azraelsec.dev is documentation-only.
 
+## Language policy (operator rule, 2026-11-01, decision #289)
+
+Only Rust, Go and C/C++ ship first-party software:
+
+- **Big projects** — services, long-lived programs, substantial internal logic → **Rust**, as much as possible.
+- **Tools and scripts** — first-party CLIs, gates, helpers → **Go**, standard library only.
+- **C/C++** — only when a measurement shows a drastic difference; never a default, never a preference.
+
+**No tier applies — this repo is a research and documentation hub, not a software repo.** Any PoC that ships follows the tier by its shape; C and Go are already the stated research focus.
+
+Authority: decision #289 and `~/Documents/ai-lab-vault/AGENTS.md` § "Language policy". Open point: existing shell glue is thin operator glue, not software, and stays until touched.
+
 ## Agent Personas
 - **T1 strategic** (Open WebUI) — research planning, methodology
 - **T5 code** (OpenCode) — exploit PoC development, analysis tooling
