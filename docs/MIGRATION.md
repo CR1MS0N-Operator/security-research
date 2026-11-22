@@ -1,41 +1,34 @@
-# Migration to azraelsec.dev
+# Publishing model
 
-Status and mapping for the eventual archival of this repository.
+GitHub holds the raw research. Azrael Security presents selected work for readers who need a blog-format explanation or an executive report.
 
-## Status
+This replaces the former plan to migrate all content to azraelsec.dev and archive this repository. The filename is retained so existing documentation links continue to work; no research, figures, or technique notes have moved.
 
-**Phase: Preparation.** No content has been moved to azraelsec.dev. This session (2026-08-02) produced documentation only: architecture, contribution, security, changelog, agent rules, content inventory, and this migration record.
+## Source and editorial layers
 
-| Phase | Description | Status |
+| Layer | Home | Responsibility |
 |---|---|---|
-| Preparation | Documentation, inventory, migration mapping | **In progress** |
-| Content migration | Whitepaper, techniques, writeups published to azraelsec.dev | Pending |
-| Verification | Links, redaction, availability checks on the site | Pending |
-| Archive | Repository archived after verification | Pending |
+| Canonical research | This repository | Full papers, methodology, lab conditions, evidence, figures, detection guidance, and revision history |
+| Publication catalog | [publications.json](../publications.json) | Dated public entries that profile and site consumers can read |
+| Editorial presentation | [Azrael Security](https://azraelsecurity.vercel.app) | Selected blog posts and executive reports from the top 3–10 research pieces, linking back to the raw source |
+| Profile discovery | [GitHub profile](https://github.com/CR1MS0N-Operator) | Links to published work; the profile's refresh is maintained separately |
 
-## Destination
+## Current scope
 
-[azraelsec.dev](https://azraelsec.dev) — Azrael Security public site. The site carries the same security policy as this repository (`SECURITY.md`): lab-originated content only, redaction applied, no operational data.
+- Raw research remains here, with existing paths and evidence preserved.
+- The catalog lists existing published work only; notes and planned tracks are not posts.
+- No executive-report URLs are recorded until the corresponding public pages exist.
+- This repository does not implement site curation, editorial generation, or a scheduled profile refresh.
+- The top 3–10 is an editorial selection goal as the corpus grows, not a claim that that many completed publications exist today.
 
-## Content Mapping
+## Publishing flow
 
-| Repository content | Destination | Notes |
-|---|---|---|
-| `research/container-boundaries/README.md` (Whitepaper 1) | azraelsec.dev research section | Flagship artifact; figures migrate with it |
-| Whitepaper figures (fig-01 … fig-06) | Same page as whitepaper | Captions preserved |
-| `techniques/linux/re/re-1`, `re-2` | azraelsec.dev writeups / RE section | Redacted flag material stays redacted |
-| Writeup screenshots | With respective writeups | Reviewed against redaction policy |
-| `writeups/README.md` | Writeup index page | Categories reflected on site |
-| `assets/certificates/` | azraelsec.dev profile / certifications page | Or excluded — decision pending |
-| `assets/screenshots/personal-site-homepage.png` | Superseded by the live site | Likely not migrated |
-| `README.md`, `ARCHITECTURE.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`, `AGENTS.md`, `docs/` | Not migrated (repo-internal) | Remain in repository until archive; migration record kept |
+1. Publish the complete, reviewed source and evidence here under the existing research or technique layout.
+2. Add its title, original publication date, and canonical GitHub URL to the [catalog](../publications.json), following the [catalog contract](PUBLICATIONS.md).
+3. Select work for a site blog post or executive report. Keep measured findings, limitations, and defensive guidance consistent with the source.
+4. Once a public editorial page exists, add its optional `summary_url` to the catalog. Both layers link to their counterpart.
+5. Revise the raw source in GitHub; review related editorial pages when conclusions change. Formatting changes do not reset publication dates.
 
-## Never Migrates
+## Publication boundaries
 
-Per `SECURITY.md`: credentials, tokens, keys, internal IPs/topology, C2 configuration, PII, non-lab data. Nothing on the never-public list moves to azraelsec.dev.
-
-## After Migration
-
-- Repository is archived (read-only) once site content is verified.
-- This file remains as the permanent record of what moved where.
-- Future research continues to be published on azraelsec.dev; the archive preserves provenance and history.
+The [security policy](../SECURITY.md) applies to both layers. Credentials, internal addressing, operational configuration, PII, and non-lab data never become public. No automatic migration, content deletion, or repository archival is part of this model.

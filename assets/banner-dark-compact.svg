@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="240" viewBox="0 0 720 240" role="img" aria-labelledby="title desc">
+  <title id="title">Azrael Security research — Below the abstraction.</title>
+  <desc id="desc">A compact crimson boundary blueprint on a dark background, with a large research title and tagline.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#303846" stroke-width="0.6"/>
+    </pattern>
+  </defs>
+  <rect width="720" height="240" rx="12" fill="#0d1117"/>
+  <rect x="1" y="1" width="718" height="238" rx="11" fill="url(#grid)"/>
+  <path d="M36 30H106" stroke="#ff5c77" stroke-width="3"/>
+  <g font-family="ui-monospace, 'DejaVu Sans Mono', monospace">
+    <text x="31" y="119" fill="#f0f3f6" font-size="84" font-weight="700" letter-spacing="-4">Research<tspan fill="#ff5c77">_</tspan></text>
+    <text x="36" y="181" fill="#c9d1d9" font-size="36" letter-spacing="-1">Below the abstraction.</text>
+  </g>
+  <g fill="none" stroke-linejoin="round">
+    <rect x="530" y="54" width="154" height="132" rx="6" stroke="#713449"/>
+    <rect x="550" y="78" width="114" height="84" rx="4" fill="#20141f" stroke="#a63b55"/>
+    <rect x="570" y="102" width="74" height="36" rx="3" fill="#301621" stroke="#ff5c77" stroke-width="2"/>
+    <path d="M514 150H582V138M644 120H700" stroke="#ff5c77" stroke-dasharray="4 6"/>
+  </g>
+  <g fill="#ff5c77">
+    <circle cx="514" cy="150" r="3"/>
+    <circle cx="700" cy="120" r="3"/>
+  </g>
+  <rect x="0.5" y="0.5" width="719" height="239" rx="11.5" fill="none" stroke="#303846"/>
+</svg>

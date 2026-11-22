@@ -44,7 +44,7 @@ Redaction is applied to figures and terminal output, not just prose. When a scre
 - Any data originating outside the authorized lab boundary
 - Details of live or past engagements
 
-These items are also excluded from migration to azraelsec.dev. The azraelsec.dev site carries the same policy as this repository.
+These items are also excluded from blog posts and executive reports on the Azrael Security site. The same policy applies to both publication layers; see the [publishing model](docs/MIGRATION.md).
 
 ## Vulnerability Disclosure
 
