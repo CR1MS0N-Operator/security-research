@@ -6,6 +6,7 @@ All notable changes to this repository, derived from git history. No release tag
 
 ### Presentation and publishing
 - Rebuild the landing page around existing publications with theme-aware crimson blueprint artwork.
+- Use simplified compact banner variants on phones so the title and tagline stay readable without shrinking desktop fine print.
 - Distinguish completed re-2 from unfinished re-1 notes; replace empty-category navigation with existing destinations.
 - Add `publications.json` and `docs/PUBLICATIONS.md` with source-backed dates for two completed publications.
 - Replace the archive-after-migration plan with GitHub as the raw research source and the site as the selected editorial layer; raw research and evidence paths are unchanged.

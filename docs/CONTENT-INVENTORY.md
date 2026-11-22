@@ -14,7 +14,7 @@ Inventory of tracked research and supporting content. Update this file when cont
 | Screenshots (writeup) | 13 | re-1 (6), re-2 (7) |
 | Certificate assets | 50 | AD-RTS, CAPT (+ 46 lab screenshots, grid), COSJ |
 | Site screenshot | 1 | `assets/screenshots/personal-site-homepage.png` |
-| Presentation artwork | 2 | Local, accessible dark/light SVG research banners |
+| Presentation artwork | 4 | Local, accessible dark/light SVG research banners in desktop and compact layouts |
 | Publication catalog | 1 | `publications.json`: two completed public entries; contract and date evidence in `docs/PUBLICATIONS.md` |
 | Code samples | 1 | `poc.so` constructor (embedded in whitepaper) |
 
@@ -46,7 +46,7 @@ Both are StackSmash challenge documents. Only re-2 has completed analysis and ou
 
 ## Diagrams and Figures
 
-Research figures are PNG. Whitepaper figures carry descriptive captions in the source document and follow a `fig-NN-<topic>.png` naming scheme. Writeup screenshots use descriptive names (`binary-identification.png`, `XOR-based-comparison.png`). The two SVG banners are presentation assets, not research evidence.
+Research figures are PNG. Whitepaper figures carry descriptive captions in the source document and follow a `fig-NN-<topic>.png` naming scheme. Writeup screenshots use descriptive names (`binary-identification.png`, `XOR-based-comparison.png`). The four SVG banners are presentation assets, not research evidence; compact variants omit fine print for phone readability.
 
 ## Code Samples
 

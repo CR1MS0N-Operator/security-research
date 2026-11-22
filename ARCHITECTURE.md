@@ -37,6 +37,8 @@ security-research/
 └── assets/
     ├── banner-dark.svg            # Theme-aware research blueprint artwork
     ├── banner-light.svg
+    ├── banner-dark-compact.svg    # Simplified phone artwork without fine print
+    ├── banner-light-compact.svg
     ├── certificates/              # Certification artifacts (AD-RTS, CAPT, COSJ)
     └── screenshots/               # Environment and site screenshots
 ```

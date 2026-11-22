@@ -1,4 +1,6 @@
 <picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="assets/banner-dark-compact.svg">
+  <source media="(max-width: 600px)" srcset="assets/banner-light-compact.svg">
   <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/banner-light.svg">
   <img src="assets/banner-light.svg" alt="Azrael Security research — Below the abstraction." width="1200">
