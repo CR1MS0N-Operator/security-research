@@ -4,6 +4,12 @@ All notable changes to this repository, derived from git history. No release tag
 
 ## [Unreleased]
 
+### Presentation and publishing
+- Rebuild the landing page around existing publications with theme-aware crimson blueprint artwork.
+- Distinguish completed re-2 from unfinished re-1 notes; replace empty-category navigation with existing destinations.
+- Add `publications.json` and `docs/PUBLICATIONS.md` with source-backed dates for two completed publications.
+- Replace the archive-after-migration plan with GitHub as the raw research source and the site as the selected editorial layer; raw research and evidence paths are unchanged.
+
 ### Documentation (archive prep)
 - Audit `README.md`: accurate repository structure, technique status, documentation index
 - Add `ARCHITECTURE.md` — research structure, writeup format, content categories

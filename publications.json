@@ -1,0 +1,14 @@
+{
+  "publications": [
+    {
+      "title": "Below the Abstraction: Hook Isolation Failures in the NVIDIA Container Toolkit",
+      "published_at": "2026-04-12",
+      "url": "https://github.com/CR1MS0N-Operator/security-research/blob/main/research/container-boundaries/README.md"
+    },
+    {
+      "title": "StackSmash CTF — re-2 Reverse Engineering",
+      "published_at": "2026-02-08",
+      "url": "https://github.com/CR1MS0N-Operator/security-research/blob/main/techniques/linux/re/re-2/README.md"
+    }
+  ]
+}
