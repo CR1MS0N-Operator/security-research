@@ -44,6 +44,12 @@ All PoCs must ship with detection guidance: what to monitor, which rule/pattern 
 
 Apply the `SECURITY.md` redaction policy before `git add`: flags, host identifiers, usernames where applicable, and anything on the never-public list. Review every screenshot and figure for sensitive content.
 
+### 6. Index completed publications
+
+Add completed public work to [publications.json](publications.json) and the README, following the [catalog contract and date-evidence requirements](docs/PUBLICATIONS.md). Unfinished notes and planned tracks stay out of the publication catalog. Update [the content inventory](docs/CONTENT-INVENTORY.md) when adding content.
+
+Raw sources remain on GitHub. Selected blog posts and executive reports may be presented on the site and linked through an optional `summary_url` only after publication; see the [publishing model](docs/MIGRATION.md).
+
 ## Review Process
 
 1. **Self-review checklist** (before commit):
@@ -66,4 +72,4 @@ Apply the `SECURITY.md` redaction policy before `git add`: flags, host identifie
 - No unauthorized target scanning.
 - No credentials, tokens, keys, internal IPs, or PII in any commit.
 - Do not move or delete content outside of tracked migration work.
-- Archive prep is documentation-only: no content moves.
+- Keep raw research and evidence in GitHub; editorial presentation does not imply content migration or archival.

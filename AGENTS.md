@@ -1,7 +1,7 @@
 # security-research — Agent Rules
 
 ## Purpose
-Container boundary vulnerability research and root cause analysis (RCA). Q2 sustaining track: weekly container research, three staged RCAs (CVE-2024-0132, CVE-2025-23359, CVE-2025-23266). Repository is the public research hub; archive prep after migration to azraelsec.dev is documentation-only.
+Container boundary vulnerability research and root cause analysis (RCA). Repository is the canonical public home for raw research and evidence; selected blog posts and executive reports belong on the Azrael Security site. See `docs/MIGRATION.md` for the publishing model.
 
 ## Language policy (operator rule, 2026-11-01, decision #289)
 
@@ -74,14 +74,14 @@ hunk session review --repo . --json   # programmatic review snapshot
 - **Version pinning:** OS, kernel, runtime (Podman/Docker/runc/crun), toolkit versions in every finding.
 - **Redaction before commit** per `SECURITY.md`: flags → `████`, usernames → uid, no IPs/credentials/PII. Review screenshots.
 - **Format:** follow the whitepaper template (`research/`) or re-1/re-2 template (`techniques/`). Relative links only.
-- **Inventory + migration:** update `docs/CONTENT-INVENTORY.md` when content is added; check `docs/MIGRATION.md` before archive-related work.
+- **Inventory + publications:** update `docs/CONTENT-INVENTORY.md` when content is added; index completed public work in `publications.json` per `docs/PUBLICATIONS.md`.
 - **Verification:** smoke-test the change, run `git difftool` (hunk) review, then commit. Never claim completion without evidence.
 
-## Archive / Migration Notes
+## Publishing Notes
 
-- Target: azraelsec.dev (see `docs/MIGRATION.md`).
-- Archive-prep sessions are documentation-only: no content moves, no deletions.
-- Guardrails from `SECURITY.md` apply to migrated content as well.
+- Raw research, figures, and evidence remain in this repository; do not archive it as a side effect of site publication.
+- Site blog posts and executive reports are a curated editorial layer, not a replacement for raw sources.
+- Guardrails from `SECURITY.md` apply to both layers. Add editorial URLs only after the public pages exist.
 
 ## Live state outranks the record (fleet rule, 2026-10-26)
 

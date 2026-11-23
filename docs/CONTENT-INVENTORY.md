@@ -1,21 +1,22 @@
 # Content Inventory
 
-Complete inventory of tracked content as of 2026-08-02. Update this file when content is added, removed, or migrated.
+Inventory of tracked research and supporting content. Update this file when content is added, removed, or migrated. Raw research and evidence remain on GitHub under the [publishing model](MIGRATION.md).
 
 ## Summary
 
 | Category | Count | Notes |
 |---|---|---|
 | Research documents | 1 | Container boundary whitepaper |
-| Technique writeups | 2 | re-1, re-2 (reverse engineering) |
+| Technique documents | 2 | re-2 completed; re-1 unfinished reconnaissance notes |
 | Writeup index | 1 | `writeups/README.md` |
 | CVE analyses | 3 | CVE-2024-0132, CVE-2025-23359, CVE-2025-23266 (chain, in whitepaper) |
 | Diagrams / figures | 6 | Whitepaper figures fig-01 … fig-06 |
 | Screenshots (writeup) | 13 | re-1 (6), re-2 (7) |
 | Certificate assets | 50 | AD-RTS, CAPT (+ 46 lab screenshots, grid), COSJ |
 | Site screenshot | 1 | `assets/screenshots/personal-site-homepage.png` |
+| Presentation artwork | 4 | Local, accessible dark/light SVG research banners in desktop and compact layouts |
+| Publication catalog | 1 | `publications.json`: two completed public entries; contract and date evidence in `docs/PUBLICATIONS.md` |
 | Code samples | 1 | `poc.so` constructor (embedded in whitepaper) |
-| Tracked content files | 76 | 6 text, 70 images (excludes repository docs) |
 
 ## Research
 
@@ -34,18 +35,18 @@ Complete inventory of tracked content as of 2026-08-02. Update this file when co
 ### Reverse Engineering
 | Writeup | Path | Binary | Method | Figures |
 |---|---|---|---|---|
-| re-1 | `techniques/linux/re/re-1/README.md` | ELF 32-bit x86, PIE, not stripped | static + GDB, byte-wise comparison loop | 6 |
+| re-1 (unfinished notes) | `techniques/linux/re/re-1/README.md` | ELF 32-bit x86, PIE, not stripped | early reconnaissance; analysis and validation remain WIP | 6 |
 | re-2 | `techniques/linux/re/re-2/README.md` | ELF 64-bit stripped | strings/ltrace/GDB, hex decode → XOR/OR comparison | 7 |
 
-Both are StackSmash challenge writeups with full methodology (not just solutions).
+Both are StackSmash challenge documents. Only re-2 has completed analysis and outcome/validation; re-1 is not a completed publication and is excluded from the catalog.
 
 ## Writeups Index
 
-- `writeups/README.md` — landing page; categories `web-security/`, `binary-exploitation/`, `penetration-testing/`, `reverse-engineering/` referenced. Only `reverse-engineering/` exists on disk, as an empty scaffold (`re-1/images/`).
+- `writeups/README.md` — index linking existing research, the completed technique writeup, and unfinished notes. Unpopulated categories are not presented as available content.
 
 ## Diagrams and Figures
 
-All figures are PNG. Whitepaper figures carry descriptive captions in the source document and follow a `fig-NN-<topic>.png` naming scheme. Writeup screenshots use descriptive names (`binary-identification.png`, `XOR-based-comparison.png`).
+Research figures are PNG. Whitepaper figures carry descriptive captions in the source document and follow a `fig-NN-<topic>.png` naming scheme. Writeup screenshots use descriptive names (`binary-identification.png`, `XOR-based-comparison.png`). The four SVG banners are presentation assets, not research evidence; compact variants omit fine print for phone readability.
 
 ## Code Samples
 
@@ -62,7 +63,7 @@ One executable sample: the `poc.so` constructor in Whitepaper 1 (Section 5). Pub
 ### Screenshots
 - `assets/screenshots/personal-site-homepage.png`
 
-## Scaffold Directories (empty, untracked)
+## Historical Scaffold Directories (untracked, absent from fresh clones)
 
 | Path | Intended content |
 |---|---|
@@ -71,7 +72,7 @@ One executable sample: the `poc.so` constructor in Whitepaper 1 (Section 5). Pub
 
 ## Not Present (referenced but not yet created)
 
-README's future-work section references these planned locations; no content yet:
+These previously planned locations have no published content and are not linked as available work:
 
 - `research/kernel/`, `research/active-directory/`, `research/infrastructure/`
 - `techniques/ad/`, `techniques/linux/kernel/`

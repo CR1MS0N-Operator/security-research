@@ -6,13 +6,14 @@ This document describes how `security-research` is structured: what each directo
 
 `security-research` is the public research hub for Azrael Security. It publishes original offensive security research, adversary emulation technique development, and infrastructure-focused vulnerability analysis. All work is conducted on self-operated, authorized lab infrastructure (see `SECURITY.md`).
 
-The repository is scheduled for archival after content migrates to azraelsec.dev. Migration status is tracked in `docs/MIGRATION.md`. Until then, this repository remains the canonical public home for the content below.
+This repository remains the canonical public home for raw research and evidence. The Azrael Security site is the editorial layer for selected blog posts and executive reports, not a replacement or archive destination. The publishing model is documented in [docs/MIGRATION.md](docs/MIGRATION.md).
 
 ## Directory Layout
 
 ```
 security-research/
-├── README.md                      # Purpose, methodology, lab environment, publications
+├── README.md                      # Research landing page and publication navigation
+├── publications.json             # Dated public publication catalog
 ├── ARCHITECTURE.md                # This document
 ├── CONTRIBUTING.md                # How to add research; review process
 ├── SECURITY.md                    # Engagement boundary, redaction policy
@@ -20,7 +21,8 @@ security-research/
 ├── AGENTS.md                      # Commands and conventions for AI agents
 ├── docs/
 │   ├── CONTENT-INVENTORY.md       # Full content inventory
-│   └── MIGRATION.md               # azraelsec.dev migration status
+│   ├── MIGRATION.md               # GitHub source / site editorial publishing model
+│   └── PUBLICATIONS.md            # Catalog contract and publication-date evidence
 ├── research/
 │   └── container-boundaries/      # Flagship track: whitepaper + figures
 │       ├── README.md              # Whitepaper 1 (published 2026-04-12)
@@ -28,25 +30,27 @@ security-research/
 ├── techniques/
 │   └── linux/
 │       └── re/                    # Reverse engineering challenge writeups
-│           ├── re-1/              # ELF 32-bit byte-wise comparison (StackSmash)
+│           ├── re-1/              # ELF 32-bit reconnaissance notes (unfinished)
 │           └── re-2/              # ELF 64-bit stripped, XOR comparison (StackSmash)
 ├── writeups/
-│   └── README.md                  # Writeup index (category scaffolds below)
-├── labs/                          # Empty scaffold: lab work notes
-│   └── tairn/
+│   └── README.md                  # Index of available writeups and notes
 └── assets/
+    ├── banner-dark.svg            # Theme-aware research blueprint artwork
+    ├── banner-light.svg
+    ├── banner-dark-compact.svg    # Simplified phone artwork without fine print
+    ├── banner-light-compact.svg
     ├── certificates/              # Certification artifacts (AD-RTS, CAPT, COSJ)
     └── screenshots/               # Environment and site screenshots
 ```
 
 ### Empty scaffold directories
 
-The following directories exist on disk as placeholders but contain no tracked content yet:
+Earlier documentation described these untracked placeholder directories; they are not part of a fresh clone and have no published content:
 
 - `labs/tairn/` — lab work notes from the Tairn platform
 - `writeups/reverse-engineering/` — future RE writeup home (see `writeups/README.md`)
 
-Empty directories are not tracked by git. They are intentionally left in place; the content plan expects them to be populated.
+Empty directories are not tracked by git. The landing page links existing content only.
 
 ## Research Structure
 
@@ -55,12 +59,12 @@ Research is organized by track. Each track owns a top-level directory:
 | Track | Directory | Status |
 |---|---|---|
 | Container boundaries | `research/container-boundaries/` | Active — flagship, Whitepaper 1 published |
-| Linux kernel & systems | (planned) | Early stage — see README |
-| Active Directory | (planned) | Course-integrated (CRTA/CRT-ID) |
-| Red team infrastructure | (planned) | Active (Veil) |
-| Reverse engineering | `techniques/linux/re/` | Active — challenge series |
+| Linux kernel & systems | (planned) | No published content |
+| Active Directory | (planned) | No published content |
+| Red team infrastructure | (planned) | No published content |
+| Reverse engineering | `techniques/linux/re/` | re-2 complete; re-1 investigation notes |
 
-Planned tracks (`research/kernel/`, `research/active-directory/`, `research/infrastructure/`, `techniques/ad/`) are documented in the README's future-work section but do not yet contain content.
+Planned tracks (`research/kernel/`, `research/active-directory/`, `research/infrastructure/`, `techniques/ad/`) do not yet contain content and are not listed as publications.
 
 ## Content Categories
 
@@ -113,11 +117,11 @@ Research findings follow the whitepaper section template:
 
 ### Technique writeup structure
 
-Technique writeups use: metadata (platform, category, tools), objective, recon, analysis, outcome/validation, key takeaways, techniques & patterns, defensive notes. The re-1 and re-2 writeups are the reference implementations of this template.
+Technique writeups use: metadata (platform, category, tools), objective, recon, analysis, outcome/validation, key takeaways, techniques & patterns, defensive notes. The completed re-2 writeup is the reference implementation; re-1 remains unfinished reconnaissance notes.
 
 ## Document Conventions
 
-- **Markdown only.** No generated docs, no build step, no CI tooling (removed 2026-02-07).
+- **Content-only.** Markdown, local image assets, and the JSON publication catalog; no documentation build step. CI checks conventional commit messages.
 - **Relative links** between repository documents; anchors kept lowercase.
 - **Evidence-first:** claims are tied to tool output, source references, or measured results. Negative results are documented with the same rigor as positive ones.
 - **Redaction:** anything covered by `SECURITY.md` redaction policy is redacted before commit (flags, host identifiers, usernames where applicable).
